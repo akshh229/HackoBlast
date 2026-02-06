@@ -1,6 +1,7 @@
 import MailSummaryCard from "../components/MailSummaryCard";
 import Timetable from "../components/Timetable";
 import StudyPlanCard from "../components/StudyPlanCard";
+import StatusCheckCard from "../components/StatusCheckCard";
 import NotificationBell from "../components/NotificationBell";
 import { logout } from "../services/auth.service";
 
@@ -57,6 +58,7 @@ export default function Dashboard({ onLogout }: Props) {
         <div className="grid gap-6 md:grid-cols-2">
           <MailSummaryCard />
           <StudyPlanCard />
+          <StatusCheckCard />
           <div className="md:col-span-2">
             <Timetable />
           </div>

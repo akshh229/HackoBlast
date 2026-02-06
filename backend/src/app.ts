@@ -7,6 +7,7 @@ import mailRoutes from "./routes/mail.routes";
 import studyPlanRoutes from "./routes/studyPlan.routes";
 import timetableRoutes from "./routes/timetable.routes";
 import notificationRoutes from "./routes/notification.routes";
+import statusRoutes from "./routes/status.routes";
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use("/api/mail", mailRoutes);
 app.use("/api/study-plan", studyPlanRoutes);
 app.use("/api/timetable", timetableRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/status", statusRoutes);
 
 export default app;
