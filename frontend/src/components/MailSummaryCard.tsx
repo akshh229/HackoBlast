@@ -15,12 +15,12 @@ export default function MailSummaryCard() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Urgency badge color helper
+  // Urgency badge color helper (backend sends lowercase)
   const urgencyColor = (u: string) => {
-    switch (u) {
-      case "High":
+    switch (u.toLowerCase()) {
+      case "high":
         return "bg-red-500/20 text-red-400";
-      case "Medium":
+      case "medium":
         return "bg-yellow-500/20 text-yellow-400";
       default:
         return "bg-green-500/20 text-green-400";

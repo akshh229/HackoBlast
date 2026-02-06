@@ -1,17 +1,25 @@
+import { useState } from "react";
 import { demoLogin } from "../services/auth.service";
 
 /**
  * Login page — single "Demo Login" button.
- * Sets a fake token and calls onLogin to flip to Dashboard.
+ * Calls the backend to create/login a demo user, then flips to Dashboard.
  */
 interface Props {
   onLogin: () => void;
 }
 
 export default function Login({ onLogin }: Props) {
-  const handleLogin = () => {
-    demoLogin();
-    onLogin();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      await demoLogin();
+      onLogin();
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,9 +34,10 @@ export default function Login({ onLogin }: Props) {
         {/* Demo login button */}
         <button
           onClick={handleLogin}
-          className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 transition-colors"
+          disabled={loading}
+          className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold py-3 transition-colors"
         >
-          Demo Login
+          {loading ? "Signing in…" : "Demo Login"}
         </button>
 
         <p className="text-gray-500 text-xs mt-4">

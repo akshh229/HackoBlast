@@ -4,24 +4,26 @@ import api from "./api";
 export interface MailSummary {
   summary: string;
   category: string;
-  urgency: "High" | "Medium" | "Low";
+  urgency: "high" | "medium" | "low";
 }
 
 /** Mock data used when backend is unreachable */
 const MOCK_SUMMARY: MailSummary = {
   summary: "Exam postponed to Friday",
-  category: "Academic",
-  urgency: "High",
+  category: "academic",
+  urgency: "high",
 };
 
 /**
- * Fetch the AI-generated mail summary.
+ * Submit mail text for AI summarisation.
  * Falls back to mock data if the API call fails.
  */
-export async function fetchMailSummary(): Promise<MailSummary> {
+export async function fetchMailSummary(text?: string): Promise<MailSummary> {
   try {
-    const { data } = await api.get<MailSummary>("/mail/summarize");
-    return data;
+    const { data } = await api.post<{ ai: MailSummary }>("/mail/summarize", {
+      text: text ?? "Sample mail for demo — exam postponed to Friday",
+    });
+    return data.ai;
   } catch (err) {
     console.warn("Backend unreachable — using mock mail summary", err);
     return MOCK_SUMMARY;

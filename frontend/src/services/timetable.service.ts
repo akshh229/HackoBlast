@@ -19,14 +19,28 @@ const MOCK_SLOTS: TimetableSlot[] = [
   { time: "02:30 – 03:30", subject: "Software Engineering", room: "LH-305", type: "lecture" },
 ];
 
+/** Shape returned by the backend */
+interface BackendEntry {
+  title: string;
+  day: string;
+  startTime: string;
+  endTime: string;
+}
+
 /**
  * Fetch today's timetable from the backend.
  * Falls back to mock data on failure.
  */
 export async function fetchTimetable(): Promise<TimetableSlot[]> {
   try {
-    const { data } = await api.get<TimetableSlot[]>("/timetable");
-    return data;
+    const { data } = await api.get<BackendEntry[]>("/timetable");
+    // Map backend shape → frontend display shape
+    return data.map((e: BackendEntry) => ({
+      time: `${e.startTime} – ${e.endTime}`,
+      subject: e.title,
+      room: "—",
+      type: "lecture" as const,
+    }));
   } catch (err) {
     console.warn("Backend unreachable — using mock timetable", err);
     return MOCK_SLOTS;
