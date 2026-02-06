@@ -22,7 +22,10 @@ export const authMiddleware = (
 
   const token = header.split(" ")[1];
   try {
-    const secret = process.env.JWT_SECRET || "hackoblast_secret";
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      throw new Error("JWT_SECRET environment variable is not set");
+    }
     const decoded = jwt.verify(token, secret) as { id: string };
     req.userId = decoded.id;
     next();

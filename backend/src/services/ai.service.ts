@@ -13,8 +13,9 @@ interface MailSummaryResult {
  * Summarise an email body and return summary + category + urgency.
  */
 export async function summarizeMail(text: string): Promise<MailSummaryResult> {
-  // Simple keyword heuristic — replace with an LLM API call for production
-  const lower = text.toLowerCase();
+  // Guard against null/undefined input
+  const safeText = typeof text === "string" ? text : "";
+  const lower = safeText.toLowerCase();
 
   let urgency: "low" | "medium" | "high" = "low";
   if (lower.includes("urgent") || lower.includes("asap") || lower.includes("deadline")) {
@@ -34,7 +35,7 @@ export async function summarizeMail(text: string): Promise<MailSummaryResult> {
 
   // Naive summary: first 120 chars
   const summary =
-    text.length > 120 ? text.substring(0, 120) + "…" : text;
+    safeText.length > 120 ? safeText.substring(0, 120) + "…" : safeText;
 
   return { summary, category, urgency };
 }

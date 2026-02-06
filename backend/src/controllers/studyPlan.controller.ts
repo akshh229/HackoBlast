@@ -14,6 +14,7 @@ export const createPlan = async (req: AuthRequest, res: Response): Promise<void>
     const plan = await generateStudyPlan({ subjects, hoursPerDay });
     res.json({ userId: req.userId, plan });
   } catch (err) {
-    res.status(500).json({ error: "Plan generation failed", details: err });
+    console.error("Study plan generation error:", err);
+    res.status(500).json({ error: "Plan generation failed" });
   }
 };

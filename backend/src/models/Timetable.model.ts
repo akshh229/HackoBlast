@@ -7,6 +7,7 @@ export interface ITimetableEntry extends Document {
   startTime: string; // "09:00"
   endTime: string; // "10:00"
   createdAt: Date;
+  updatedAt: Date;
 }
 
 const TimetableSchema = new Schema<ITimetableEntry>(

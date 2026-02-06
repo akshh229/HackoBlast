@@ -7,9 +7,14 @@ const router = Router();
 router.use(authMiddleware);
 
 /** GET /api/notifications — list notifications for current user */
-router.get("/", (req: AuthRequest, res: Response) => {
-  const items = getNotifications(req.userId!);
-  res.json(items);
+router.get("/", async (req: AuthRequest, res: Response) => {
+  try {
+    const items = await getNotifications(req.userId!);
+    res.json(items);
+  } catch (err) {
+    console.error("Failed to fetch notifications:", err);
+    res.status(500).json({ error: "Failed to fetch notifications" });
+  }
 });
 
 export default router;

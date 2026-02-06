@@ -24,14 +24,19 @@ export const summarize = async (req: AuthRequest, res: Response): Promise<void> 
       urgency: result.urgency,
     });
 
-    // Push a notification if urgent
+    // Push a notification if urgent (await so rejections are caught)
     if (result.urgency === "high") {
-      pushNotification(req.userId!, "🚨 You have an urgent email!");
+      try {
+        pushNotification(req.userId!, "🚨 You have an urgent email!");
+      } catch (notifErr) {
+        console.error(`Notification failed for user ${req.userId}:`, notifErr);
+      }
     }
 
     res.json({ mail, ai: result });
   } catch (err) {
-    res.status(500).json({ error: "Summarization failed", details: err });
+    console.error("Summarization error:", err);
+    res.status(500).json({ error: "Summarization failed" });
   }
 };
 
@@ -41,6 +46,7 @@ export const listMails = async (req: AuthRequest, res: Response): Promise<void> 
     const mails = await Mail.find({ userId: req.userId }).sort({ createdAt: -1 });
     res.json(mails);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch mails", details: err });
+    console.error("Failed to fetch mails:", err);
+    res.status(500).json({ error: "Failed to fetch mails" });
   }
 };
