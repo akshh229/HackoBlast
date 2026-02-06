@@ -149,13 +149,10 @@ Academic email summarization
 Study plan generation
 
 #### AI Safety
-AI outputs structured JSON only
-
-AI never commits code
-
-AI responses are human‑reviewed
-
-No autonomous decision making
+- AI outputs structured JSON only
+-AI never commits code
+-AI responses are human‑reviewed
+-No autonomous decision making
 
 ### 🗄️ Database Design (MVP)
 #### Collections
