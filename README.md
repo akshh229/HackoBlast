@@ -142,30 +142,26 @@ Frontend (frontend/.env)
 VITE_API_URL=http://localhost:3000
 ```
 ### 🤖 AI Usage & Responsibility
-AI is used for:
+#### AI is used for:
 
-Academic email summarization
-
-Study plan generation
+- Academic email summarization
+- Study plan generation
 
 #### AI Safety
 - AI outputs structured JSON only
--AI never commits code
--AI responses are human‑reviewed
--No autonomous decision making
+- AI never commits code
+- AI responses are human‑reviewed
+- No autonomous decision making
 
 ### 🗄️ Database Design (MVP)
 #### Collections
-users
-
-mails
-
-timetables
+- users
+- mails
+- timetables
 
 #### Design Choice
-Simple schemas
-
-No complex relations
+- Simple schemas
+- No complex relations
 
 Optimized for speed and clarity
 
