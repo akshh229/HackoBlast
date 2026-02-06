@@ -1,45 +1,107 @@
 # HackoBlast 🚀
-An AI-powered Campus Super App that unifies academic life, communication, and productivity into one intelligent dashboard.
+**An AI‑Powered Campus Super App**
+
+HackoBlast unifies academic life, communication, and productivity into **one intelligent dashboard**.  
+It reduces information overload by summarizing emails, organizing timetables, and generating smart study plans using AI.
+
+---
 
 ## 🔥 Problem Statement
-College tools are fragmented across emails, portals, timetables, and notifications.
-Students waste time switching platforms and miss important academic updates.
+College students rely on multiple fragmented tools:
+- Emails for academic notices
+- Portals for timetables
+- Apps for productivity
+- Messaging groups for alerts
+
+This fragmentation causes:
+- Missed deadlines
+- Information overload
+- Poor academic planning
+
+---
 
 ## 💡 Solution
-HackoBlast acts as a single nervous system for campus life by:
+HackoBlast acts as a **single nervous system for campus life** by:
 - Summarizing academic emails using AI
-- Providing a real-time academic dashboard
-- Generating personalized study plans
-- Centralizing notifications and timetables
+- Providing a real‑time academic dashboard
+- Centralizing timetables and notifications
+- Generating AI‑assisted study plans
+
+---
 
 ## 🧠 Key Features
-- AI Mail Summarization
-- Daily Pulse Dashboard
-- Academic Cockpit
-- Smart Study Planner
-- Secure Authentication
-- Real-time Notifications
+- **AI Mail Summarization**
+- **Daily Pulse Dashboard**
+- **Academic Cockpit**
+- **Smart Study Planner**
+- **Secure Authentication (MVP)**
+- **Real‑time Notifications (UI‑level)**
 
-## 🏗️ Tech Stack
-**Frontend**
+---
+
+## 🏗️ System Architecture
+Frontend (React + TS)
+↓
+Backend (Node + Express)
+↓
+AI Service Layer (LLM)
+↓
+MongoDB (Atlas)
+
+### Design Principles
+- Modular & scalable
+- AI isolated from core logic
+- Human‑in‑the‑loop AI usage
+- Backend as single source of truth
+
+---
+
+## 🧑‍💻 Tech Stack
+
+### Frontend
 - React + TypeScript
-- Tailwind CSS
 - Vite
+- Tailwind CSS
+- Axios
 
-**Backend**
-- Node.js + Express
+### Backend
+- Node.js
+- Express
 - TypeScript
-- MongoDB
+- MongoDB + Mongoose
 
-**AI Layer**
-- LLM-based Summarization
-- Prompt-engineered Study Planner
+### AI Layer
+- LLM‑based summarization
+- Prompt‑engineered structured outputs
+
+---
 
 ## 📂 Project Structure
-```text
 HackoBlast/
-├── frontend/        # UI & client logic
-├── backend/         # APIs & business logic
-├── ai/              # AI models & prompts
-├── shared/          # Shared types/constants
-├── docs/            # Architecture & AI design
+├── frontend/
+├── backend/
+├── ai/
+├── shared/
+├── docs/
+├── .github/
+└── README.md
+
+
+---
+
+
+---
+
+## ⚙️ Setup & Installation
+
+### Prerequisites
+- Node.js v18+
+- MongoDB Atlas account
+
+---
+
+### Backend Setup
+```bash
+cd backend
+npm install
+npm run dev
