@@ -1,9 +1,10 @@
 import MailSummaryCard from "../components/MailSummaryCard";
 import Timetable from "../components/Timetable";
+import SmartInsightsCard from "../components/SmartInsightsCard";
 
 /**
- * DailyPulse — Quick daily overview page.
- * Shows today's timetable and the latest mail summary at a glance.
+ * DailyPulse — AI-powered daily overview page.
+ * Shows today's timetable, the latest mail summary, and AI smart insights.
  */
 export default function DailyPulse() {
   return (
@@ -12,7 +13,10 @@ export default function DailyPulse() {
 
       <div className="grid gap-6 md:grid-cols-2">
         <Timetable />
-        <MailSummaryCard />
+        <div className="space-y-6">
+          <MailSummaryCard />
+          <SmartInsightsCard />
+        </div>
       </div>
     </section>
   );

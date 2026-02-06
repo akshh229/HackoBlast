@@ -46,3 +46,30 @@ export async function fetchTimetable(): Promise<TimetableSlot[]> {
     return MOCK_SLOTS;
   }
 }
+
+/** Shape of an AI timetable insight */
+export interface TimetableInsight {
+  subject: string;
+  tip: string;
+  priority: "high" | "medium" | "low";
+}
+
+const MOCK_INSIGHTS: TimetableInsight[] = [
+  { subject: "Data Structures", tip: "Revise tree traversal algorithms before class.", priority: "high" },
+  { subject: "Operating Systems", tip: "Review process scheduling concepts.", priority: "medium" },
+  { subject: "DBMS Lab", tip: "Prepare SQL queries for today's lab exercise.", priority: "high" },
+];
+
+/**
+ * Fetch AI-generated timetable insights (Feature 5).
+ * Falls back to mock data on failure.
+ */
+export async function fetchTimetableInsights(): Promise<TimetableInsight[]> {
+  try {
+    const { data } = await api.get<TimetableInsight[]>("/timetable/insights");
+    return data;
+  } catch (err) {
+    console.warn("Backend unreachable — using mock timetable insights", err);
+    return MOCK_INSIGHTS;
+  }
+}

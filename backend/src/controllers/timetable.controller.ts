@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { AuthRequest } from "../middleware/auth.middleware";
 import { Timetable } from "../models/Timetable.model";
+import { generateTimetableInsights } from "../services/ai.service";
 
 /** Fields that clients are allowed to update */
 const UPDATABLE_FIELDS = ["title", "day", "startTime", "endTime"] as const;
@@ -67,5 +68,24 @@ export const deleteEntry = async (req: AuthRequest, res: Response): Promise<void
   } catch (err) {
     console.error("Failed to delete timetable entry:", err);
     res.status(500).json({ error: "Failed to delete entry" });
+  }
+};
+
+/** GET /api/timetable/insights — AI-powered preparation tips for today */
+export const getInsights = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const entries = await Timetable.find({ userId: req.userId }).sort({ day: 1, startTime: 1 });
+    const insights = await generateTimetableInsights(
+      entries.map((e) => ({
+        title: e.title,
+        day: e.day,
+        startTime: e.startTime,
+        endTime: e.endTime,
+      }))
+    );
+    res.json(insights);
+  } catch (err) {
+    console.error("Failed to generate timetable insights:", err);
+    res.status(500).json({ error: "Failed to generate insights" });
   }
 };

@@ -1,13 +1,48 @@
 import { useState, useRef, useEffect } from "react";
+import api from "../services/api";
+
+interface Notification {
+  id: string;
+  message: string;
+  read: boolean;
+  createdAt: string;
+}
 
 /**
- * NotificationBell — UI-only notification indicator.
- * Shows a red badge with a count; clicking toggles a dropdown.
- * Dropdown closes when clicking outside.
+ * NotificationBell — Fetches real-time AI-triggered notifications from the backend.
+ * Shows a red badge with count; clicking toggles a dropdown.
+ * Falls back to demo notifications when backend is unreachable.
  */
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const ref = useRef<HTMLDivElement>(null);
+
+  // Fetch notifications from backend
+  useEffect(() => {
+    api
+      .get<Notification[]>("/notifications")
+      .then((res) => {
+        if (res.data.length > 0) {
+          setNotifications(res.data);
+        } else {
+          // Fallback demo data when no real notifications exist yet
+          setNotifications([
+            { id: "1", message: "📢 Exam rescheduled to Friday", read: false, createdAt: new Date().toISOString() },
+            { id: "2", message: "📚 New study material uploaded", read: false, createdAt: new Date().toISOString() },
+            { id: "3", message: "⏰ Assignment deadline tomorrow", read: false, createdAt: new Date().toISOString() },
+          ]);
+        }
+      })
+      .catch(() => {
+        // Backend unreachable — show demo notifications
+        setNotifications([
+          { id: "1", message: "📢 Exam rescheduled to Friday", read: false, createdAt: new Date().toISOString() },
+          { id: "2", message: "📚 New study material uploaded", read: false, createdAt: new Date().toISOString() },
+          { id: "3", message: "⏰ Assignment deadline tomorrow", read: false, createdAt: new Date().toISOString() },
+        ]);
+      });
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -21,13 +56,6 @@ export default function NotificationBell() {
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
-
-  // Static demo notifications
-  const notifications = [
-    "📢 Exam rescheduled to Friday",
-    "📚 New study material uploaded",
-    "⏰ Assignment deadline tomorrow",
-  ];
 
   return (
     <div className="relative" ref={ref}>
@@ -66,12 +94,12 @@ export default function NotificationBell() {
             Notifications
           </div>
           <ul>
-            {notifications.map((n, i) => (
+            {notifications.map((n) => (
               <li
-                key={i}
-                className="px-4 py-3 text-sm text-gray-200 hover:bg-gray-700 transition cursor-pointer border-b border-gray-700/50 last:border-0"
+                key={n.id}
+                className={`px-4 py-3 text-sm text-gray-200 hover:bg-gray-700 transition cursor-pointer border-b border-gray-700/50 last:border-0 ${!n.read ? "font-semibold" : ""}`}
               >
-                {n}
+                {n.message}
               </li>
             ))}
           </ul>
