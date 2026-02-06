@@ -74,7 +74,7 @@ MongoDB Atlas (Database)
 ---
 
 ## 📂 Project Structure
-
+```bash
 HackoBlast/
 │
 ├── frontend/
@@ -107,7 +107,7 @@ HackoBlast/
 │ └── CODEOWNERS
 │
 └── README.md
-
+```
 
 ---
 
@@ -129,5 +129,16 @@ cd frontend
 npm install
 npm run dev
 ```
-
+### 🔐 Environment Variables
+Backend (backend/.env)
+```bash
+MONGO_URI=
+JWT_SECRET=
+AI_API_KEY=
+PORT=3000
+```
+Frontend (frontend/.env)
+```bash
+VITE_API_URL=http://localhost:3000
+```
 
