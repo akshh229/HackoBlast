@@ -1,10 +1,11 @@
 import MailSummaryCard from "../components/MailSummaryCard";
 import StudyPlanCard from "../components/StudyPlanCard";
 import Timetable from "../components/Timetable";
+import SmartInsightsCard from "../components/SmartInsightsCard";
 
 /**
- * AcademicCockpit — Combined academic overview page.
- * Shows timetable, study plan, and mail summary in one view.
+ * AcademicCockpit — Combined AI-powered academic overview page.
+ * Shows timetable, study plan, mail summary, and AI smart insights.
  */
 export default function AcademicCockpit() {
   return (
@@ -14,6 +15,7 @@ export default function AcademicCockpit() {
       <div className="grid gap-6 md:grid-cols-2">
         <MailSummaryCard />
         <StudyPlanCard />
+        <SmartInsightsCard />
         <div className="md:col-span-2">
           <Timetable />
         </div>
