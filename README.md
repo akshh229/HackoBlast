@@ -162,7 +162,37 @@ VITE_API_URL=http://localhost:3000
 #### Design Choice
 - Simple schemas
 - No complex relations
-
-Optimized for speed and clarity
+- Optimized for speed and clarity
 
 ### 🔄 End‑to‑End Working Flow
+```bash
+User Action
+ → Frontend (Dashboard)
+ → Backend API
+ → AI Service (Summarization / Planner)
+ → MongoDB (Persist Data)
+ → Frontend Update (UI)
+```
+### 🎥 Demo Flow (For Judges)
+1. Login with demo account
+2. Dashboard loads
+3. Paste academic email
+4. AI generates summary
+5. Summary appears in dashboard
+
+### 🚀 Future Scope
+- Faculty admin panel
+- Attendance prediction
+- AI exam preparation assistant
+- Mobile application
+- Campus analytics dashboard
+
+### 👥 Team
+- Akshat — Product & Architecture
+- Ritik — Frontend
+- Suraj — Backend & Database
+- Yash — AI Integration
+
+### 🏁 Conclusion
+HackoBlast demonstrates how AI can be responsibly integrated into real academic workflows.
+The system is modular, scalable, and designed for real‑world deployment beyond a hackathon.
